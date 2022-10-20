@@ -1,0 +1,23 @@
+strong.nom {
+    color:blue
+}
+p {
+	font-family : Times New Roman ;
+	font-size : 14pt ;
+	background-color : grey ;
+	text-align : justify ;
+}
+li {
+    text-align: center;
+}
+.ville {
+    color: red;
+    font-size: 16pt;
+}
+.date {
+    color:skyblue;
+    background-color: green;
+}
+.langage {
+    background-color: yellowgreen;
+}

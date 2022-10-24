@@ -11,4 +11,4 @@ Les enseignements du premier semestre visent à présenter le contexte général
 Ressources complémentaires :
 
 - Documentation et références pour apprendre à utiliser le web : https://developer.mozilla.org/fr/docs/Web
-- Vérifier la validiter d'un code HTML : https://validator.w3.org
+- Vérifier la validité d'un code HTML : https://validator.w3.org

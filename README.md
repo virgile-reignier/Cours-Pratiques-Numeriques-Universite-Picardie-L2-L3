@@ -6,7 +6,7 @@ Ce répertoire contient les slides et les différents supports utilisés pendant
 
 ## Semestre 1 : Les fondamentaux du web
 
-Les enseignements du premier semestre visent à présenter le contexte général de création du web, ses usage pour les sciences humaines, les fondamentaux de la création de pages web et quelques pratiques de recherche documentaire.
+Les enseignements du premier semestre visent à présenter le contexte général de création du web, ses usages pour les sciences humaines, les fondamentaux de la création de pages web et quelques pratiques de recherche documentaire.
 
 Ressources complémentaires :
 

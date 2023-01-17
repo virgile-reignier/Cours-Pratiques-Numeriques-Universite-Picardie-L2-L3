@@ -12,3 +12,12 @@ Ressources complémentaires :
 
 - Documentation et références pour apprendre à utiliser le web : https://developer.mozilla.org/fr/docs/Web
 - Vérifier la validité d'un code HTML : https://validator.w3.org
+
+## Semestre 2 : Maniement d'une base de données relationnelle
+
+Les enseignements du second semestre visent à présenter les outils informatiques mobilisables pour la gestion de données, le langage SQL utilisé pour les bases de données relationnelles et quelques unes de ses fonctionnalités.
+
+Ressources complémentaires :
+
+- Outil de modélisation UML : https://app.diagrams.net
+- Documentations pour apprendre les commandes SQL : https://sql.sh

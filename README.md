@@ -13,7 +13,7 @@ Ressources complémentaires :
 - Documentation et références pour apprendre à utiliser le web : https://developer.mozilla.org/fr/docs/Web
 - Vérifier la validité d'un code HTML : https://validator.w3.org
 
-## Semestre 2 : Manager des données à l'aide d'un modèle relationnel (cours 5 à 8)
+## Semestre 2 : Gérer des données avec un modèle relationnel (Cours 5 à 7)
 
 Les enseignements du second semestre visent à présenter les outils informatiques mobilisables pour la gestion de données, le langage SQL utilisé pour les bases de données relationnelles et quelques unes de ses fonctionnalités.
 

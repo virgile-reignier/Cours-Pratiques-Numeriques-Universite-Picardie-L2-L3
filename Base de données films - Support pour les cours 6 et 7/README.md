@@ -6,6 +6,6 @@ Elle répond au modèle conceptuel suivant :
 
 ![Modèle conceptuel](films_modele_conceptuel.png)
 
-Ce modèle permet de créer un modèle logique relationnel à l'origine de son implantation physique dans SQLite
+Ce modèle permet de créer un modèle logique relationnel à l'origine de son implantation physique dans SQLite :
 
 ![Modèle logique](films_modele_logique.png)

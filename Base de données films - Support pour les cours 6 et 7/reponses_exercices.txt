@@ -1,5 +1,6 @@
 Cours 6
 
+
 Exercice 1 :
 SELECT nom, prénom FROM personne;
 SELECT titre, genre, durée FROM film WHERE durée <= 120;
@@ -29,8 +30,132 @@ SELECT prénom, count(id) AS nombre FROM personne GROUP BY prénom HAVING nombre >
 SELECT genre, avg(durée) AS durée_moyenne, count(id) AS nombre_films FROM film GROUP BY genre HAVING durée_moyenne < 120;
 SELECT genre, avg(durée) AS durée_moyenne, count(id) AS nombre_films FROM film WHERE année > 1980 GROUP BY genre HAVING durée_moyenne > 120;
 
+
 Exercice 5 :
 SELECT titre FROM film ORDER BY durée DESC LIMIT 3;
 SELECT substr(nom, 1, 3) AS init FROM ville;
 SELECT prénom, nom, 1900 + substr(date_naissance, 7, 2) FROM personne WHERE date_décès IS NOT NULL;
 
+
+Cours 7
+
+
+Exercice 1 :
+SELECT personne.nom, personne.prénom FROM personne, role WHERE personne.id = role.id_personne AND role.action = "Scénariste";
+SELECT personne.prénom, personne.nom, personne.date_décès FROM personne, evenement WHERE personne.id = evenement.id_personne AND evenement.type = "Décès";
+SELECT pays.nom, count(pays_de_production.id_film) AS nombre_films FROM pays, pays_de_production WHERE pays.id = pays_de_production.id_pays GROUP BY pays_de_production.id_pays;
+SELECT ville.nom, count(evenement.id_ville) AS nombre_evenements FROM ville, evenement WHERE ville.id = evenement.id_ville GROUP BY id_ville ORDER BY ville.nom;
+SELECT personne.nom, personne.prénom, count(role.id_personne) AS nombre_roles FROM personne, role WHERE personne.id = role.id_personne GROUP BY role.id_personne ORDER BY nombre_roles DESC;
+
+
+Exercice 2 :
+SELECT film.titre, pays.nom FROM film, pays_de_production, pays WHERE film.id = pays_de_production.id_film AND pays_de_production.id_pays = pays.id;
+SELECT film.titre, role.action, personne.nom, personne.prénom FROM film, role, personne WHERE film.id = role.id_film AND role.id_personne = personne.id;
+SELECT personne.nom, personne.prénom FROM film, role, personne WHERE film.id = role.id_film AND role.id_personne = personne.id AND role.action = "Acteur" AND année < 1970;
+SELECT personne.prénom, personne.nom, personne.date_naissance, ville.nom AS ville_naissance FROM personne, evenement, ville WHERE personne.id = evenement.id_personne AND evenement.id_ville = ville.id AND evenement.type = "Naissance";
+SELECT personne.nom, personne.prénom, count(role.id_personne) AS nombre_réalisations FROM personne, role, film WHERE personne.id = role.id_personne AND role.id_film = film.id AND role.action = "Réalisateur" AND film.année > 1980 GROUP BY role.id_personne;
+
+
+Exercice 3 :
+SELECT prénom, nom, max(nombre_films) FROM
+(SELECT personne.nom, personne.prénom, count(role.id_film) AS nombre_films FROM personne, role 
+WHERE personne.id = role.id_personne AND role.action = "Acteur" GROUP BY role.id_personne);
+
+SELECT nom, max(nombre_films_produits) FROM
+(SELECT pays.nom, count(pays_de_production.id_film) AS nombre_films_produits FROM pays, pays_de_production
+WHERE pays.id = pays_de_production.id_pays
+GROUP BY id_pays);
+
+SELECT personne.prénom, personne.nom FROM
+(SELECT film.id AS film_id, film.titre, min(film.durée)
+FROM film
+GROUP BY film.genre), role, personne
+WHERE film_id = role.id_film
+AND role.id_personne = personne.id
+AND role.action = "Acteur";
+
+SELECT prénom, nom, max(année_naissance) FROM
+(SELECT personne.prénom, personne.nom, 1900 + substr(personne.date_naissance, 7, 2) AS année_naissance FROM
+(SELECT film.id AS film_id, film.titre, min(film.durée)
+FROM film
+GROUP BY film.genre), role, personne
+WHERE film_id = role.id_film
+AND role.id_personne = personne.id
+AND role.action = "Acteur");
+
+
+Exercice 4 :
+SELECT pays.nom AS pays, ville.nom AS ville
+FROM pays
+LEFT JOIN ville
+ON ville.id_pays = pays.id;
+SELECT pays.nom AS pays_production, film.titre
+FROM pays
+LEFT JOIN pays_de_production
+ON pays_de_production.id_pays = pays.id
+LEFT JOIN film
+ON pays_de_production.id_film = film.id;
+
+SELECT genre_1, prénom, nom
+FROM
+(SELECT film.genre AS genre_1, avg(film.durée) AS durée_moyenne
+FROM film
+GROUP BY genre
+HAVING durée_moyenne < 140)
+LEFT JOIN
+(SELECT film.genre AS genre_2, personne.prénom, personne.nom FROM film
+INNER JOIN role
+ON role.id_film = film.id
+INNER JOIN personne
+ON personne.id = role.id_personne
+WHERE personne.nom = "Cameron" AND personne.prénom = "James"
+AND role.action = "Réalisateur")
+ON genre_1 = genre_2;
+
+SELECT genre_1, année_naissance_min
+FROM
+(SELECT film.genre AS genre_1, avg(film.durée) AS durée_moyenne
+FROM film
+GROUP BY genre
+HAVING durée_moyenne < 140)
+LEFT JOIN
+(SELECT film.genre AS genre_2, min(année_naissance) AS année_naissance_min FROM film
+INNER JOIN role
+ON role.id_film = film.id
+INNER JOIN 
+(SELECT id as personne_id, 1900 + substr(date_naissance, 7, 2) AS année_naissance
+FROM personne
+WHERE année_naissance > 1940)
+ON role.id_personne = personne_id
+WHERE role.action = "Acteur"
+GROUP BY genre)
+ON genre_1 = genre_2;
+
+Exercice 5 :
+SELECT titre FROM film
+WHERE genre = "Science-fiction"
+AND année >
+(SELECT max(année) FROM film
+WHERE genre = "Western");
+
+SELECT titre, prénom, nom FROM film
+INNER JOIN role
+ON film.id = role.id_film
+INNER JOIN personne
+ON personne.id = role.id_personne
+WHERE durée >
+(SELECT max(durée) FROM film
+WHERE genre = "Comédie")
+AND role.action = "Réalisateur";
+
+SELECT prénom, nom FROM
+(SELECT id AS personne_id, nom, prénom, 1900 + substr(date_naissance, 7, 2) AS année_naissance FROM personne)
+INNER JOIN role
+ON role.id_personne = personne_id
+WHERE année_naissance <
+(SELECT min(année_naissance) FROM
+(SELECT nom, prénom, 1900 + substr(date_naissance, 7, 2) AS année_naissance FROM personne
+INNER JOIN role
+ON role.id_personne = personne.id
+WHERE action = "Réalisateur"))
+AND action = "Acteur";
